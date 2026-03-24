@@ -11,7 +11,7 @@ import (
 var rootCmd = &cobra.Command{
 	Use:     "gitfw",
 	Short:   "GitFW - Premium Git Flow Implementation",
-	Version: "0.1.9-beta",
+	Version: "0.1.11-beta",
 	Long: ui.ColorYellow + `GitFW CLI - A robust and premium implementation of the Gitflow workflow.
 Designed for efficiency, safety, and visual clarity.` + ui.ColorReset,
 	Run: func(cmd *cobra.Command, args []string) {
