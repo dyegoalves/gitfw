@@ -1,4 +1,4 @@
-# GitFW CLI 🚀 (v0.1.8-beta)
+# GitFW CLI 🚀 (v0.1.11-beta)
 
 **GitFW** é uma ferramenta de linha de comando premium e robusta para implementação da metodologia Git Flow. Agora utilizando o framework **Cobra CLI**, oferece autocompletação profissional, performance e segurança para gerenciar seu ciclo de vida de software.
 
