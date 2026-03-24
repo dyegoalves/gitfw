@@ -1,4 +1,4 @@
-# GitFW CLI 🚀 (v0.1.8-beta)
+# GitFW CLI 🚀 (v0.1.11-beta)
 
 **GitFW** é uma ferramenta de linha de comando premium e robusta para implementação da metodologia Git Flow. Agora utilizando o framework **Cobra CLI**, oferece autocompletação profissional, performance e segurança para gerenciar seu ciclo de vida de software.
 
@@ -39,7 +39,9 @@ source <(gitfw completion zsh)
 | `gitfw feature finish [nome]` | Finaliza e mescla em develop |
 | `gitfw release start [v]` | Inicia preparação de versão |
 | `gitfw release finish [v]` | Finaliza v, tagueia e mescla em main/develop |
-| `gitfw hotfix start [nome]` | Inicia correção crítica |
+| `gitfw bugfix start [nome]` | Inicia correção de bug durante desenvolvimento |
+| `gitfw bugfix finish [nome]`| Finaliza e mescla correção em develop |
+| `gitfw hotfix start [nome]` | Inicia correção crítica em produção |
 | `gitfw prune` | Limpa branches locais obsoletas |
 | `gitfw version` / `-v` | Exibe a versão atual |
 
@@ -49,8 +51,9 @@ source <(gitfw completion zsh)
 -   `main`: Produção (apenas código tagueado).
 -   `develop`: Branch oficial de integração.
 -   `feature/*`: Novas funcionalidades.
+-   `bugfix/*`: Correções de bugs durante o desenvolvimento.
 -   `release/*`: Preparação de lançamentos.
--   `hotfix/*`: Correções urgentes.
+-   `hotfix/*`: Correções urgentes em produção.
 
 ---
 
