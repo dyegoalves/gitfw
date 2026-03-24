@@ -1,6 +1,6 @@
-# GitFW CLI 🚀
+# GitFW CLI 🚀 (v0.1.8-beta)
 
-**GitFW** é uma ferramenta de linha de comando premium e robusta para implementação da metodologia Git Flow. Desenvolvida em Go, ela oferece performance, segurança e uma experiência de usuário simplificada para gerenciar o ciclo de vida do seu software.
+**GitFW** é uma ferramenta de linha de comando premium e robusta para implementação da metodologia Git Flow. Agora utilizando o framework **Cobra CLI**, oferece autocompletação profissional, performance e segurança para gerenciar seu ciclo de vida de software.
 
 ---
 
@@ -8,73 +8,49 @@
 
 -   📦 **`init`**: Configura automaticamente as branches `main` e `develop`.
 -   📊 **`status`**: Visualização rápida do estado do seu fluxo atual.
+-   🧹 **`prune`**: Limpa branches locais já mescladas nas branches principais.
+-   ⌨️ **Autocomplete**: Suporte nativo para Bash, Zsh e Fish.
 -   🛡️ **Segurança**: Bloqueia finalizações se houver alterações não commitadas.
--   🌐 **Resiliência**: Funciona perfeitamente em repositórios locais (ignora erros de `origin` se não configurado).
--   🚀 **Automatização de Release**: Faz merges duplos (`main` e `develop`) e cria tags de versão com um único comando.
+-   🚀 **Release Automatizada**: Merges duplos e criação de tags via CLI.
 
 ---
 
 ## 🛠️ Instalação (macOS)
 
-Certifique-se de ter o [Go](https://golang.org/dl/) instalado.
-
 1. Clone o repositório.
-2. No diretório do projeto, execute:
+2. Execute a instalação:
    ```bash
    make install
    ```
-   *Isso compilará o binário e o instalará em `/usr/local/bin/gitfw`.*
 
----
-
-## 📖 Guia de Uso
-
-### 1. Inicializando
+### ⚡ Habilitar Autocomplete (Zsh/Mac)
+Para ativar as sugestões de comandos via TAB, adicione ao seu `.zshrc`:
 ```bash
-gitfw init
-```
-
-### 2. Fluxo de Funcionalidade (Feature)
-```bash
-# Iniciar uma nova feature
-gitfw feature start billing-system
-
-# Finalizar e mesclar em develop
-gitfw feature finish billing-system
-```
-
-### 3. Fluxo de Lançamento (Release)
-```bash
-# Iniciar uma nova versão
-gitfw release start 1.3.0
-
-# Finalizar (mescla em main e develop + cria tag v1.3.0)
-gitfw release finish 1.3.0
-```
-
-### 4. Correções Críticas (Hotfix)
-```bash
-gitfw hotfix start security-patch
-gitfw hotfix finish security-patch
+source <(gitfw completion zsh)
 ```
 
 ---
 
-## 🎨 Outros Comandos
+## 📖 Comandos Comuns
 
--   `gitfw status`: Mostra branch atual, estado do repo e remoto.
--   `gitfw prune`: Limpa branches locais que já foram mescladas nas branches principais.
--   `gitfw feature list`: Lista todas as features ativas.
--   `gitfw version`: Exibe a versão atual do CLI.
+| Comando | Descrição |
+| :--- | :--- |
+| `gitfw feature start [nome]` | Inicia uma nova funcionalidade |
+| `gitfw feature finish [nome]` | Finaliza e mescla em develop |
+| `gitfw release start [v]` | Inicia preparação de versão |
+| `gitfw release finish [v]` | Finaliza v, tagueia e mescla em main/develop |
+| `gitfw hotfix start [nome]` | Inicia correção crítica |
+| `gitfw prune` | Limpa branches locais obsoletas |
+| `gitfw version` / `-v` | Exibe a versão atual |
 
 ---
 
-## 🔧 Estrutura de Branches (Gitflow)
--   `main`: Onde o código de produção reside (tagueado).
--   `develop`: Onde o desenvolvimento ocorre e onde as features são integradas.
--   `feature/*`: Branches temporárias para novas funcionalidades.
--   `release/*`: Preparação da próxima versão.
--   `hotfix/*`: Correções urgentes para a `main`.
+## 🔧 Estrutura Gitflow
+-   `main`: Produção (apenas código tagueado).
+-   `develop`: Branch oficial de integração.
+-   `feature/*`: Novas funcionalidades.
+-   `release/*`: Preparação de lançamentos.
+-   `hotfix/*`: Correções urgentes.
 
 ---
 
