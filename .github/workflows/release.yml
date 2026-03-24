@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*' # Trigger on tags like v1.0.0, v0.1.11-beta
+      - "v*" # Trigger on tags like v1.0.0, v0.1.11-beta
 
 permissions:
   contents: write
@@ -44,7 +44,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.24' # Pode ajustar a versão do Go se necessário
+          go-version: "1.26.1" # Pode ajustar a versão do Go se necessário
 
       - name: Build Binary
         env:
