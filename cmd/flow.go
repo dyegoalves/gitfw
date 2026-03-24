@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"gitfw/pkg/flow"
+	"strings"
 	"github.com/spf13/cobra"
 )
 
@@ -68,6 +69,38 @@ func newFlowCmd(prefix, base string) *cobra.Command {
 
 func init() {
 	rootCmd.AddCommand(newFlowCmd("feature", "develop"))
-	rootCmd.AddCommand(newFlowCmd("bugfix", "develop"))
+	rootCmd.AddCommand(newBugfixCmd())
 	rootCmd.AddCommand(newFlowCmd("support", "main"))
+}
+
+func newBugfixCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "bugfix",
+		Short: "Gerencia o fluxo de bugfix (desenvolvimento)",
+	}
+
+	subcommands := []struct {
+		use   string
+		short string
+	}{
+		{"start [nome]", "Inicia uma correção de bug"},
+		{"finish [nome]", "Finaliza e mescla a correção em develop"},
+		{"publish [nome]", "Envia o bugfix para o servidor"},
+		{"list", "Lista bugfixes ativos"},
+		{"track [nome]", "Rastreia um bugfix remoto"},
+		{"pull", "Sincroniza bugfixes com o servidor"},
+	}
+
+	for _, sc := range subcommands {
+		sCmd := sc
+		cmd.AddCommand(&cobra.Command{
+			Use:   sCmd.use,
+			Short: sCmd.short,
+			Run: func(cmd *cobra.Command, args []string) {
+				flow.HandleBugfix(append([]string{strings.Split(sCmd.use, " ")[0]}, args...))
+			},
+		})
+	}
+
+	return cmd
 }

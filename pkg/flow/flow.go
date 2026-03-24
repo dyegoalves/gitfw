@@ -229,6 +229,72 @@ func HandleFlow(prefix, base string, args []string) {
 	}
 }
 
+func HandleBugfix(args []string) {
+	if len(args) < 1 {
+		ui.LogError("Uso: gitfw bugfix [start|finish|publish|list|track|pull] [nome]")
+		os.Exit(1)
+	}
+
+	action := args[0]
+	name := ""
+	if len(args) >= 2 {
+		name = args[1]
+	}
+
+	switch action {
+	case "start":
+		if name == "" {
+			ui.LogError("Nome do bug é obrigatório para 'start'.")
+			os.Exit(1)
+		}
+		ui.LogInfo("🔧 Corrigindo bugfix: %s (base: develop)", name)
+		if err := git.Run("git checkout develop"); err != nil {
+			ui.LogError("Erro ao trocar para branch develop.")
+			return
+		}
+		if git.RemoteExists("origin") {
+			git.Run("git pull origin develop")
+		}
+		if err := git.Run(fmt.Sprintf("git checkout -b bugfix/%s", name)); err != nil {
+			ui.LogError("Falha ao criar branch bugfix/%s", name)
+			return
+		}
+		ui.LogSuccess("Branch bugfix/%s criado com sucesso!", name)
+
+	case "finish":
+		if name == "" {
+			ui.LogError("Nome do bug é obrigatório para 'finish'.")
+			os.Exit(1)
+		}
+		if !git.IsRepoClean() {
+			ui.LogError("O repositório possui alterações não commitadas. Finalize-as antes de concluir o bugfix.")
+			return
+		}
+		if !git.BranchExists("bugfix/" + name) {
+			ui.LogError("A branch bugfix/%s não foi encontrada.", name)
+			return
+		}
+
+		ui.LogInfo("🏁 Concluindo correção de bugfix: %s", name)
+		if err := git.Run("git checkout develop"); err != nil {
+			ui.LogError("Erro ao trocar para branch develop.")
+			return
+		}
+		if git.RemoteExists("origin") {
+			git.Run("git pull origin develop")
+		}
+		if err := git.Run(fmt.Sprintf("git merge --no-ff bugfix/%s", name)); err != nil {
+			ui.LogError("Conflitos detectados durante o merge do bugfix.")
+			return
+		}
+		git.Run(fmt.Sprintf("git branch -d bugfix/%s", name))
+		ui.LogSuccess("Bugfix %s mesclado em develop e branch removida.", name)
+
+	default:
+		HandleFlow("bugfix", "develop", args)
+	}
+}
+
 func HandleRelease(args []string) {
 	if len(args) < 2 {
 		ui.LogError("Uso: gitfw release [start|finish|publish|list|track] [versão]")

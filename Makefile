@@ -1,7 +1,7 @@
 # GitFW CLI - Makefile for macOS
 
 BINARY_NAME=gitfw
-VERSION=0.1.8-beta
+VERSION=0.1.9-beta
 INSTALL_PATH=/usr/local/bin
 
 .PHONY: all build install uninstall clean help
