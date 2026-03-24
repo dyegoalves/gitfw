@@ -1,7 +1,7 @@
 # GitFW CLI - Makefile for macOS
 
 BINARY_NAME=gitfw
-VERSION=1.1.0
+VERSION=0.1.17-beta
 INSTALL_PATH=/usr/local/bin
 
 .PHONY: all build install uninstall clean help
@@ -10,7 +10,7 @@ all: build
 
 build:
 	@echo "🔨 Construindo $(BINARY_NAME) v$(VERSION)..."
-	go build -o $(BINARY_NAME) gitfw.go
+	go build -o $(BINARY_NAME) main.go
 
 install: build
 	@echo "🚀 Instalando $(BINARY_NAME) no sistema ($(INSTALL_PATH))..."
